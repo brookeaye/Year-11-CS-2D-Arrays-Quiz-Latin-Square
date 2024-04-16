@@ -8,6 +8,9 @@ public class LatinSquare {
      */
     public static int targetCheckSum1(int rowSize) {
         int sum=0;
+        for (int i = 1; i <= rowSize; i++){
+            sum+=i;
+        }
         return sum;
     }
 
@@ -18,7 +21,10 @@ public class LatinSquare {
      *         calculate and return the product of consecutive integers 1 * 2 * ... * N
      */
     public static int targetCheckSum2(int rowSize) {
-        int prod=1;
+        int prod = 1;
+        for (int i = 1; i <= rowSize; i++){
+            prod = prod*i;
+        }
         return prod;
     }
 
@@ -32,7 +38,18 @@ public class LatinSquare {
      *         AND that every row's product in array2d is equal to checkSum2
      */
     public static boolean isLatinRows(int[][] array2d, int checkSum1, int checkSum2) {
-        return false;
+        for (int[] row : array2d){
+            int sum = 0;
+            int prod = 1;
+            for (int x : row){
+                sum+=x;
+                prod = prod*x;
+            }
+            if (sum != checkSum1 || prod!=checkSum2){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -44,7 +61,18 @@ public class LatinSquare {
      *         AND that every column's product in array2d is equal to checkSum2
      */
     public static boolean isLatinColumns(int[][] array2d, int checkSum1, int checkSum2) {
-        return false;
+        for (int i = 0; i < array2d[0].length; i++){
+            int sum = 0;
+            int prod = 1;
+            for (int[] row : array2d){
+                sum+=row[i];
+                prod = prod*row[i];
+            }
+            if (sum != checkSum1 || prod!=checkSum2){
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -55,6 +83,9 @@ public class LatinSquare {
      *         Hint: make use of isLatinRows and isLatinColumns
      */
     public static boolean isLatinSquare(int[][] array2d) {
+        if (isLatinRows(array2d, targetCheckSum1(array2d.length), targetCheckSum2(array2d.length)) && isLatinColumns(array2d, targetCheckSum1(array2d.length), targetCheckSum2(array2d.length))){
+            return true;
+        }
         return false;
     }
 
